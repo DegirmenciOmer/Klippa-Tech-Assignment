@@ -2,14 +2,14 @@
   "name": "Klippa-Tech-Assignment",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "server.js",
   "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon index",
+    "start": "nodemon server",
     "data:import": "node seeder",
     "data:destroy": "node seeder -d",
-    "dev": "node index"
+    "dev": "node server"
   },
   "repository": {
     "type": "git",

@@ -1,20 +1,21 @@
 import mongoose from 'mongoose'
 
 const calculationSchema = mongoose.Schema({
-  question: {
-    type: mongoose.Schema.Types.ObjectId,
-    required: true,
-    ref: 'Question',
-  },
-  user: {
-    type: mongoose.Schema.Types.ObjectId,
-    required: true,
-    ref: 'User',
-  },
-
-  result: {
-    type: Boolean,
-    required: true,
+  session: {
+    user: {
+      type: mongoose.Schema.Types.ObjectId,
+      required: true,
+      ref: 'User',
+    },
+    questions: {
+      type: mongoose.Schema.Types.ObjectId,
+      required: true,
+      ref: 'Question',
+    },
+    result: {
+      type: Boolean,
+      required: true,
+    },
   },
 })
 
