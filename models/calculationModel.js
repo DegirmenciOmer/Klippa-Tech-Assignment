@@ -2,23 +2,13 @@ import mongoose from 'mongoose'
 
 const calculationSchema = mongoose.Schema({
   session: {
-    user: {
-      type: mongoose.Schema.Types.ObjectId,
-      required: false,
-      ref: 'User',
-    },
     questions: {
-      type: mongoose.Schema.Types.ObjectId,
-      required: false,
-      ref: 'Question',
-    },
-    result: {
-      type: Boolean,
+      type: Array,
       required: false,
     },
     numTry: {
       type: Number,
-      required: false,
+      required: true,
       default: 0,
     },
   },
