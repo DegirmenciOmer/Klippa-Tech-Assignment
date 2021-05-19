@@ -29,9 +29,9 @@ const Home = () => {
         <h1>New game</h1>
       </Grid.Row>
       <Grid.Row>
-        <Form onSubmit={submit} size='large'>
-          {questions.map((q) => (
-            <Form.Group key={q._id} widths='equal'>
+        {questions.map((q) => (
+          <Form key={q._id} onSubmit={submit} size='large'>
+            <Form.Group widths='equal'>
               <Grid.Column className='fields'>
                 <Form.Field label={q.question} />
               </Grid.Column>
@@ -49,9 +49,9 @@ const Home = () => {
                 <Button type='submit'>Submit</Button>
               </Grid.Column>
             </Form.Group>
-          ))}
-          <Divider hidden />
-        </Form>{' '}
+            <Divider hidden />
+          </Form>
+        ))}
       </Grid.Row>
     </Grid>
   )

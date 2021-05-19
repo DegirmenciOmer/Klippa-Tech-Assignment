@@ -16,11 +16,9 @@ const importData = async () => {
     await Question.deleteMany()
     await User.deleteMany()
     await Calculation.deleteMany()
-    await User.insertMany(sampleUsers)
+    //await User.insertMany(sampleUsers)
     await Question.insertMany(sampleQs)
 
-    console.log(sampleUsers)
-    console.log(sampleQs)
     console.log('Data imported')
     process.exit()
   } catch (error) {

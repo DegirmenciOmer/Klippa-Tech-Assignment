@@ -4,17 +4,22 @@ const calculationSchema = mongoose.Schema({
   session: {
     user: {
       type: mongoose.Schema.Types.ObjectId,
-      required: true,
+      required: false,
       ref: 'User',
     },
     questions: {
       type: mongoose.Schema.Types.ObjectId,
-      required: true,
+      required: false,
       ref: 'Question',
     },
     result: {
       type: Boolean,
-      required: true,
+      required: false,
+    },
+    numTry: {
+      type: Number,
+      required: false,
+      default: 0,
     },
   },
 })

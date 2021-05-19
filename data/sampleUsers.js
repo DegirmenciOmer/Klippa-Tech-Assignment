@@ -1,15 +1,12 @@
 const sampleUsers = [
   {
-    username: 'Dave',
-    numCorrect: 0,
+    userName: 'Dave',
   },
   {
-    username: 'Brian',
-    numCorrect: 0,
+    userName: 'Brian',
   },
   {
-    username: 'Frank',
-    numCorrect: 0,
+    userName: 'Frank',
   },
 ]
 
