@@ -21,7 +21,7 @@ connectDB()
 
 const PORT = process.env.PORT || 8000
 
-app.get('/', getQuestions, cors(corsOptions))
+app.get('/', cors(corsOptions), getQuestions)
 app.get('/quest/:id', getQuestionById, cors(corsOptions))
 
 app.post('/quest/calculation', cors(corsOptions), postCalculation)

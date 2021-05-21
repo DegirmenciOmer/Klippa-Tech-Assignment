@@ -13,7 +13,7 @@ function MenuBar() {
         as={Link}
         to='/'
       >
-        <img src='./logo192.png' />
+        <img src='./logo192.png' alt='logo' />
       </Menu.Item>
       <Menu.Menu position='right'>
         <Menu.Item
