@@ -6,10 +6,10 @@ import { Grid, Form, Button, Divider } from 'semantic-ui-react'
 const Home = () => {
   const [questions, setQuestions] = useState([])
 
-  const [reply, setReply] = useState({})
-  const [repArray, setRepArray] = useState([])
+  const [replyArray, setReplyArray] = useState([])
 
   useEffect(() => {
+    setReplyArray([])
     const fetchQs = async () => {
       try {
         const { data } = await axios.get('http://localhost:5000/')
@@ -21,11 +21,24 @@ const Home = () => {
     fetchQs()
   }, [])
 
-  const submit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault()
-    console.log(reply.newReply.answer)
-    setRepArray((prev) => [...prev, reply])
-    console.log(repArray)
+    try {
+      console.log(replyArray)
+      return await axios.post(
+        'http://localhost:5000/quest/calculation',
+        {
+          questions: replyArray,
+        },
+        {
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        }
+      )
+    } catch (error) {
+      console.error(error)
+    }
   }
 
   return (
@@ -34,9 +47,9 @@ const Home = () => {
         <h1>New game</h1>
       </Grid.Row>
       <Grid.Row>
-        {questions.map((q) => (
-          <Form key={q.id} onSubmit={submit} size='large'>
-            <Grid.Row>
+        <Form onSubmit={handleSubmit} size='large'>
+          {questions.map((q) => (
+            <Grid.Row key={q.id}>
               <Grid.Column className='fields'>
                 <Form.Field label={q.question} />
               </Grid.Column>
@@ -44,22 +57,23 @@ const Home = () => {
                 <Form.Input
                   onChange={(e) => {
                     const val = parseInt(e.target.value)
-                    setReply({
-                      newReply: {
+
+                    setReplyArray((prev) => [
+                      ...prev,
+                      {
                         question: q.question,
                         answer: val,
                         id: q.id,
                       },
-                    })
+                    ])
                   }}
                   placeholder='Your Answer'
                 />
-                <Form.Button>Submit</Form.Button>
               </Grid.Column>
             </Grid.Row>
-          </Form>
-        ))}
-        <Button>Submit</Button>
+          ))}
+          <Button>SubmitPost</Button>
+        </Form>
       </Grid.Row>
     </Grid>
   )
