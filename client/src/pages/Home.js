@@ -12,8 +12,11 @@ const Home = () => {
     setReplyArray([])
     const fetchQs = async () => {
       try {
-        const { data } = await axios.get('http://localhost:5000/')
-        setQuestions(data)
+        const {
+          data: { questions: fetchedQs, _id },
+        } = await axios.get('http://localhost:5000/')
+        setQuestions(fetchedQs)
+        console.log(fetchedQs, _id)
       } catch (error) {
         console.error(error)
       }
@@ -25,17 +28,10 @@ const Home = () => {
     e.preventDefault()
     try {
       console.log(replyArray)
-      return await axios.post(
-        'http://localhost:5000/quest/calculation',
-        {
-          questions: replyArray,
-        },
-        {
-          headers: {
-            'Content-Type': 'application/json',
-          },
-        }
-      )
+      return await axios.post('http://localhost:5000/quest/calculation', {
+        questions: replyArray,
+        id: '60a97a4dfaccc20e9888943e',
+      })
     } catch (error) {
       console.error(error)
     }

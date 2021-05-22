@@ -1,16 +1,14 @@
 import mongoose from 'mongoose'
 
 const calculationSchema = mongoose.Schema({
-  session: {
-    questions: {
-      type: Array,
-      required: false,
-    },
-    numTry: {
-      type: Number,
-      required: true,
-      default: 0,
-    },
+  questions: {
+    type: Array,
+    required: false,
+  },
+  numTry: {
+    type: Number,
+    required: true,
+    default: 0,
   },
 })
 
