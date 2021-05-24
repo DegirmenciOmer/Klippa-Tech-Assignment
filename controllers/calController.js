@@ -13,14 +13,14 @@ const postCalculation = asyncHandler(async (req, res) => {
      * if correct, SUCCESS
      * start a new game
      */
-    const reqQuestions = req.body.questions
+    const replyArray = req.body.replyArray
     console.log(req.body)
 
-    const sessionDB = await Calculation.findById(req.body.id)
+    const sessionDB = await Calculation.findById(req.body.replyId)
 
     let sessionQuestions = []
     let tempNumTry = 0
-    await reqQuestions.map(async (q) => {
+    await replyArray.map(async (q) => {
       const sessionDBQ = await Question.findById(q.id)
 
       sessionQuestions.push(sessionDBQ)
