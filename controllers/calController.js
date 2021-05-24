@@ -4,11 +4,6 @@ import Question from '../models/questionModel.js'
 
 const postCalculation = asyncHandler(async (req, res) => {
   try {
-    const { reqQuestions, reqId } = req.body
-
-    const session = await Calculation.findById(reqId)
-
-    console.log(session)
     /**
      * TODO:
      * frontend: fix the issue onChange event
@@ -18,15 +13,38 @@ const postCalculation = asyncHandler(async (req, res) => {
      * if correct, SUCCESS
      * start a new game
      */
+    const reqQuestions = req.body.questions
+    console.log(req.body)
 
-    reqQuestions.map(async (q) => {
-      const dbQ = await Question.findById(q.id)
-      console.log(dbQ.answer, q.answer)
-      if (dbQ.answer === q.answer) {
-        console.log('CORRECT')
+    const sessionDB = await Calculation.findById(req.body.id)
+
+    let sessionQuestions = []
+    let tempNumTry = 0
+    await reqQuestions.map(async (q) => {
+      const sessionDBQ = await Question.findById(q.id)
+
+      sessionQuestions.push(sessionDBQ)
+
+      if (sessionDBQ.answer === q.answer) {
+        console.log('CORRECT!')
       } else {
-        console.log('NOT CORRECT')
+        console.log('INCORRECT!')
+
+        if (tempNumTry === 0) {
+          tempNumTry = 1
+          // const newCalculation = await new Calculation({
+          //   questions: refinedQs,
+          // }).save()
+        }
+        //tempNumTry++
       }
+    })
+    //sessionDB.numCorrect++
+    console.log(tempNumTry)
+
+    res.json({
+      numTry: tempNumTry,
+      message: 'Try again',
     })
   } catch (error) {
     console.error(error)

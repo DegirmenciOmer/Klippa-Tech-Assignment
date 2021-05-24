@@ -13,12 +13,11 @@ const getQuestions = asyncHandler(async (req, res) => {
         id: q._id,
       }))
 
-    const newCalculation = new Calculation({
+    const newCalculation = await new Calculation({
       questions: refinedQs,
-    })
-    const createdCalculation = await newCalculation.save()
-    console.log(createdCalculation)
-    res.json(createdCalculation)
+    }).save()
+    //console.log(newCalculation, 'newCalculation')
+    return await res.json(newCalculation)
   } catch (error) {
     console.error(error)
   }
