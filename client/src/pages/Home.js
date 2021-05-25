@@ -1,11 +1,19 @@
 import { React, useState, useEffect } from 'react'
 //import { Link } from 'react-router-dom'
 import axios from 'axios'
-import { Grid, Form, Button, Header, Message } from 'semantic-ui-react'
+import {
+  Grid,
+  Form,
+  Button,
+  Header,
+  Message,
+  Segment,
+  Dimmer,
+  Loader,
+} from 'semantic-ui-react'
 
 const Home = () => {
   const [questions, setQuestions] = useState([])
-
   const [replyArray, setReplyArray] = useState([])
   const [replyId, setReplyId] = useState('')
 
@@ -43,11 +51,15 @@ const Home = () => {
       </Grid.Row>
       <Form onSubmit={handleSubmit} className='ui centered' size='large'>
         {questions.length === 0 ? (
-          <Message>No data provided</Message>
+          <Segment>
+            <Dimmer active inverted>
+              <Loader inverted content='Loading' />
+            </Dimmer>
+          </Segment>
         ) : (
           questions.map((q) => (
             <Form.Group width='large' key={q.id}>
-              <Grid.Column floated='left'>
+              <Grid.Column verticalAlign='middle' floated='left'>
                 <label>{q.question}</label>
               </Grid.Column>
 
