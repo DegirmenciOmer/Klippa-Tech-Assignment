@@ -12,16 +12,23 @@ import {
 
 const Home = () => {
   const [questions, setQuestions] = useState([])
-  const [replyArray, setReplyArray] = useState([])
   const [replyId, setReplyId] = useState('')
 
   useEffect(() => {
-    setReplyArray([])
+    setQuestions([])
     const fetchQs = async () => {
       try {
         const { data } = await axios.get('http://localhost:5000/')
 
-        setQuestions(data.questions)
+        setQuestions(
+          data.questions.map((q) => {
+            return {
+              question: q.question,
+              answer: '',
+              id: q.id,
+            }
+          })
+        )
         setReplyId(data._id)
       } catch (error) {
         console.error(error)
@@ -33,9 +40,9 @@ const Home = () => {
   const handleSubmit = async (e) => {
     e.preventDefault()
     try {
-      console.log(replyArray, 'replyArray')
+      console.log(questions, 'questions')
       return await axios.post('http://localhost:5000/quest/calculation', {
-        replyArray,
+        questions,
         replyId,
       })
     } catch (error) {
@@ -66,17 +73,21 @@ const Home = () => {
                 <Form.Input
                   type='number'
                   required
+                  value={q.answer}
                   onChange={(e) => {
                     const val = parseInt(e.target.value)
 
-                    setReplyArray((prev) => [
-                      ...prev,
-                      {
-                        question: q.question,
-                        answer: val,
-                        id: q.id,
-                      },
-                    ])
+                    const newQuestions = questions.map((question) => {
+                      if (question.id === q.id) {
+                        return {
+                          ...question,
+                          answer: val,
+                        }
+                      } else {
+                        return question
+                      }
+                    })
+                    setQuestions(newQuestions)
                   }}
                   placeholder='Your Answer'
                 />
@@ -84,7 +95,9 @@ const Home = () => {
             </Form.Group>
           ))
         )}
-        <Button>SubmitPost</Button>
+        <Button fluid floated='right'>
+          Submit Answers
+        </Button>
       </Form>
     </Grid>
   )

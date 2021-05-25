@@ -10,7 +10,6 @@ const calculationSchema = mongoose.Schema({
     required: true,
     default: 0,
   },
-  numCorrect: { type: Number, required: true, default: 0 },
 })
 
 const Calculation = mongoose.model('Calculation', calculationSchema)
