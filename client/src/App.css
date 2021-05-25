@@ -1,8 +1,17 @@
-#root {
-background-color: linear-gradient(to bottom, #33ccff 0%, #ff99cc 100%);;
+* {
+    box-sizing: border-box;
+  }
 
-}
+
+body {
+    height: 100vh;
+    background: linear-gradient(to right, #0022461b, #1cb5e0)  !important;
+    display: flex !important;
+    flex-direction: column !important;
+
+  }
 
 .fields{
 padding: 9px;
 }
+

@@ -9,7 +9,7 @@ import MenuBar from './components/MenuBar'
 
 function App() {
   return (
-    <Router className='App'>
+    <Router style={{ backgroundImage: 'url(/bground.jpg)' }} className='App'>
       <Container>
         <MenuBar />
         <Route exact path='/' component={Home} />

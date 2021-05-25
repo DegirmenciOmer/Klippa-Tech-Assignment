@@ -1,7 +1,7 @@
 import { React, useState, useEffect } from 'react'
 //import { Link } from 'react-router-dom'
 import axios from 'axios'
-import { Grid, Form, Button, Divider } from 'semantic-ui-react'
+import { Grid, Form, Button, Header, Message } from 'semantic-ui-react'
 
 const Home = () => {
   const [questions, setQuestions] = useState([])
@@ -16,7 +16,6 @@ const Home = () => {
         const { data } = await axios.get('http://localhost:5000/')
 
         setQuestions(data.questions)
-        console.log(data)
         setReplyId(data._id)
       } catch (error) {
         console.error(error)
@@ -38,19 +37,24 @@ const Home = () => {
   }
 
   return (
-    <Grid>
+    <Grid className='ui centered home'>
       <Grid.Row>
-        <h1>New game</h1>
+        <Header as='h1' content='New Game' textAlign='center' />
       </Grid.Row>
-      <Grid.Row>
-        <Form onSubmit={handleSubmit} size='large'>
-          {questions.map((q) => (
-            <Grid.Row key={q.id}>
-              <Grid.Column className='fields'>
-                <Form.Field label={q.question} />
+      <Form onSubmit={handleSubmit} className='ui centered' size='large'>
+        {questions.length === 0 ? (
+          <Message>No data provided</Message>
+        ) : (
+          questions.map((q) => (
+            <Form.Group width='large' key={q.id}>
+              <Grid.Column floated='left'>
+                <label>{q.question}</label>
               </Grid.Column>
+
               <Grid.Column>
                 <Form.Input
+                  type='number'
+                  required
                   onChange={(e) => {
                     const val = parseInt(e.target.value)
 
@@ -66,11 +70,11 @@ const Home = () => {
                   placeholder='Your Answer'
                 />
               </Grid.Column>
-            </Grid.Row>
-          ))}
-          <Button>SubmitPost</Button>
-        </Form>
-      </Grid.Row>
+            </Form.Group>
+          ))
+        )}
+        <Button>SubmitPost</Button>
+      </Form>
     </Grid>
   )
 }
