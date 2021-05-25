@@ -1,12 +1,10 @@
 import { React, useState, useEffect } from 'react'
-//import { Link } from 'react-router-dom'
 import axios from 'axios'
 import {
   Grid,
   Form,
   Button,
   Header,
-  Message,
   Segment,
   Dimmer,
   Loader,
@@ -35,6 +33,7 @@ const Home = () => {
   const handleSubmit = async (e) => {
     e.preventDefault()
     try {
+      console.log(replyArray, 'replyArray')
       return await axios.post('http://localhost:5000/quest/calculation', {
         replyArray,
         replyId,
