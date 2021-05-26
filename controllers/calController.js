@@ -6,29 +6,34 @@ const postCalculation = asyncHandler(async (req, res) => {
   try {
     /**
      * TODO:
-     * frontend: fix the issue onChange event
      * compare the results
      * if incorrect, numTry++
      * if numTry === 3 GAMEOVER
      * if correct, SUCCESS
      * start a new game
      */
-    const replyArray = req.body.replyArray
-    console.log(req.body)
+    const replyArray = req.body.questions
 
     const sessionDB = await Calculation.findById(req.body.replyId)
 
-    let sessionQuestions = []
+    let hadAnyWrongAnswers = false
     let tempNumTry = 0
     await replyArray.map(async (q) => {
       const sessionDBQ = await Question.findById(q.id)
 
-      sessionQuestions.push(sessionDBQ)
+      const returnQuestion = {
+        answer: q.answer,
+        correct: false,
+        id: q.id,
+      }
 
       if (sessionDBQ.answer === q.answer) {
         console.log('CORRECT!')
+        returnQuestion.correct = true
       } else {
         console.log('INCORRECT!')
+        returnQuestion.correct = true
+        hadAnyWrongAnswers = true
 
         if (tempNumTry === 0) {
           tempNumTry = 1
