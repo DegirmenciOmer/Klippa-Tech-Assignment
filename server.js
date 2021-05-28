@@ -1,7 +1,7 @@
 import express from 'express'
 import dotenv from 'dotenv'
 import connectDB from './config/db.js'
-import { getQuestions, getQuestionById } from './controllers/questController.js'
+import { getQuestions } from './controllers/questController.js'
 import { postCalculation } from './controllers/calController.js'
 import { registerUser, loginUser } from './controllers/userController.js'
 
@@ -27,7 +27,6 @@ connectDB()
 const PORT = process.env.PORT || 8000
 
 app.get('/', getQuestions)
-app.get('/quest/:id', getQuestionById)
 app.post('/quest/calculation', postCalculation)
 app.post('/users/register', registerUser)
 app.post('/users/login', loginUser)

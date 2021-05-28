@@ -16,41 +16,49 @@ const postCalculation = asyncHandler(async (req, res) => {
 
     const sessionDB = await Calculation.findById(req.body.replyId)
 
-    let hadAnyWrongAnswers = false
-    let tempNumTry = 0
-    await replyArray.map(async (q) => {
+    let hadAnyWrongAnswers = false,
+      tempNumTry = 0,
+      sessionQuestions = []
+    await replyArray.forEach(async (q) => {
       const sessionDBQ = await Question.findById(q.id)
 
       const returnQuestion = {
+        id: q.id,
+        question: q.question,
         answer: q.answer,
         correct: false,
-        id: q.id,
       }
 
       if (sessionDBQ.answer === q.answer) {
         console.log('CORRECT!')
         returnQuestion.correct = true
+        hadAnyWrongAnswers = false
       } else {
         console.log('INCORRECT!')
-        returnQuestion.correct = true
+        returnQuestion.correct = false
         hadAnyWrongAnswers = true
-
-        if (tempNumTry === 0) {
-          tempNumTry = 1
-          // const newCalculation = await new Calculation({
-          //   questions: refinedQs,
-          // }).save()
-        }
-        //tempNumTry++
       }
+      sessionQuestions.push(returnQuestion)
     })
     //sessionDB.numCorrect++
     console.log(tempNumTry)
-
-    res.json({
-      numTry: tempNumTry,
-      message: 'Try again',
-    })
+    let newNumAttempts = sessionDB.numTry
+    console.log(hadAnyWrongAnswers)
+    if (hadAnyWrongAnswers) {
+      newNumAttempts += 1
+      await Calculation.updateOne(req.body.replyId, {
+        ...(numTry = numTry++),
+      }).save()
+      res.json({
+        numTry: tempNumTry,
+        message: 'Try again',
+      })
+    } else {
+      res.json({
+        numTry: tempNumTry,
+        message: 'Congratulations',
+      })
+    }
   } catch (error) {
     console.error(error)
   }

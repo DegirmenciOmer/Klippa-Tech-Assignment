@@ -16,20 +16,10 @@ const getQuestions = asyncHandler(async (req, res) => {
     const newCalculation = await new Calculation({
       questions: refinedQs,
     }).save()
-    //console.log(newCalculation, 'newCalculation')
     return await res.json(newCalculation)
   } catch (error) {
     console.error(error)
   }
 })
 
-const getQuestionById = asyncHandler(async (req, res) => {
-  const question = await Question.findById(req.params.id)
-  if (question) {
-    res.json(question)
-  } else {
-    res.status(404).json({ message: 'Question not found' })
-  }
-})
-
-export { getQuestionById, getQuestions }
+export { getQuestions }
