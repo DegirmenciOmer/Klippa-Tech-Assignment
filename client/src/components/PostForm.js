@@ -7,6 +7,7 @@ import Loading from '../components/Loading'
 const PostForm = () => {
   const [questions, setQuestions] = useState([])
   const [replyId, setReplyId] = useState('')
+  const [message, setMessage] = useState('')
 
   useEffect(() => {
     setQuestions([])
@@ -42,7 +43,12 @@ const PostForm = () => {
           replyId,
         }
       )
-      console.log(data)
+      console.log(data.message)
+      if (data.message === 'Congratulations') {
+        console.log('start new game')
+      } else {
+        console.log('try again')
+      }
     } catch (error) {
       console.error(error)
     }

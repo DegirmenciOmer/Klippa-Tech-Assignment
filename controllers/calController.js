@@ -17,37 +17,53 @@ const postCalculation = asyncHandler(async (req, res) => {
     const sessionDB = await Calculation.findById(req.body.replyId)
 
     let hadAnyWrongAnswers = false,
-      tempNumTry = 0,
+      tempNumTry = sessionDB.numTry,
       sessionQuestions = []
-    await replyArray.forEach(async (q) => {
-      const sessionDBQ = await Question.findById(q.id)
+    console.log(tempNumTry, 'tempNumTry1')
 
-      const returnQuestion = {
-        id: q.id,
-        question: q.question,
-        answer: q.answer,
-        correct: false,
-      }
+    async function loopQuestions(wrongAns) {
+      await replyArray.forEach(async (q) => {
+        const sessionDBQ = await Question.findById(q.id)
 
-      if (sessionDBQ.answer === q.answer) {
-        console.log('CORRECT!')
-        returnQuestion.correct = true
-        hadAnyWrongAnswers = false
-      } else {
-        console.log('INCORRECT!')
-        returnQuestion.correct = false
-        hadAnyWrongAnswers = true
-      }
-      sessionQuestions.push(returnQuestion)
-    })
+        const returnQuestion = {
+          id: q.id,
+          question: q.question,
+          answer: q.answer,
+          correct: false,
+        }
+
+        if (sessionDBQ.answer === q.answer) {
+          console.log('CORRECT!')
+          returnQuestion.correct = true
+          wrongAns = false
+        } else {
+          console.log('INCORRECT!')
+          returnQuestion.correct = false
+          wrongAns = true
+          console.log(wrongAns, 'hadAnyWrongAnswers1')
+          sessionQuestions.push(returnQuestion)
+          return wrongAns
+        }
+      })
+      console.log(wrongAns, 'hadAnyWrongAnswers2')
+    }
+
+    loopQuestions(hadAnyWrongAnswers)
+    //console.log(sessionQuestions, 'sessionQuestions2')
+
     //sessionDB.numCorrect++
-    console.log(tempNumTry)
+    console.log(tempNumTry++, 'tempNumTry2')
     let newNumAttempts = sessionDB.numTry
-    console.log(hadAnyWrongAnswers)
+    console.log(hadAnyWrongAnswers, 'hadAnyWrongAnswers2')
     if (hadAnyWrongAnswers) {
       newNumAttempts += 1
+      console.log(newNumAttempts, 'newNumAttempts')
+
+      tempNumTry++
+      console.log(tempNumTry, 'tempNumTry2')
+
       await Calculation.updateOne(req.body.replyId, {
-        ...(numTry = numTry++),
+        ...(numTry = newNumAttempts),
       }).save()
       res.json({
         numTry: tempNumTry,

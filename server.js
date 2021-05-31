@@ -3,7 +3,6 @@ import dotenv from 'dotenv'
 import connectDB from './config/db.js'
 import { getQuestions } from './controllers/questController.js'
 import { postCalculation } from './controllers/calController.js'
-import { registerUser, loginUser } from './controllers/userController.js'
 
 const app = express()
 
@@ -28,8 +27,6 @@ const PORT = process.env.PORT || 8000
 
 app.get('/', getQuestions)
 app.post('/quest/calculation', postCalculation)
-app.post('/users/register', registerUser)
-app.post('/users/login', loginUser)
 
 app.get('*', (req, res) => {
   res.status(404).json({ error: 'Not found' })
