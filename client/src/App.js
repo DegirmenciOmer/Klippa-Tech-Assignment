@@ -4,7 +4,7 @@ import { Container } from 'semantic-ui-react'
 import 'semantic-ui-css/semantic.min.css'
 
 import Home from './pages/Home'
-import Thank from './pages/Thank'
+import Success from './pages/Success'
 import MenuBar from './components/MenuBar'
 
 function App() {
@@ -13,7 +13,7 @@ function App() {
       <Container>
         <MenuBar />
         <Route exact path='/' component={Home} />
-        <Route path='/thank' component={Thank} />
+        <Route path='/success' component={Success} />
       </Container>
     </Router>
   )

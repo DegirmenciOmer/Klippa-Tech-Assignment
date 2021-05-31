@@ -13,65 +13,34 @@ const postCalculation = asyncHandler(async (req, res) => {
      * start a new game
      */
     const replyArray = req.body.questions
-
     const sessionDB = await Calculation.findById(req.body.replyId)
 
-    let hadAnyWrongAnswers = false,
-      tempNumTry = sessionDB.numTry,
-      sessionQuestions = []
-    console.log(tempNumTry, 'tempNumTry1')
+    //const response = balblafunction(replyArray, sessionDB)
 
-    async function loopQuestions(wrongAns) {
-      await replyArray.forEach(async (q) => {
-        const sessionDBQ = await Question.findById(q.id)
+    //res.json(response)
+    const hasWrongAnswer = await checkForWrongAnswer(replyArray)
+    console.log(hasWrongAnswer)
 
-        const returnQuestion = {
-          id: q.id,
-          question: q.question,
-          answer: q.answer,
-          correct: false,
-        }
+    if (hasWrongAnswer) {
+      console.log({ numberOfTries: sessionDB.numTry })
 
-        if (sessionDBQ.answer === q.answer) {
-          console.log('CORRECT!')
-          returnQuestion.correct = true
-          wrongAns = false
-        } else {
-          console.log('INCORRECT!')
-          returnQuestion.correct = false
-          wrongAns = true
-          console.log(wrongAns, 'hadAnyWrongAnswers1')
-          sessionQuestions.push(returnQuestion)
-          return wrongAns
-        }
-      })
-      console.log(wrongAns, 'hadAnyWrongAnswers2')
-    }
+      let currentNumberOftries = sessionDB.numTry
 
-    loopQuestions(hadAnyWrongAnswers)
-    //console.log(sessionQuestions, 'sessionQuestions2')
+      if (currentNumberOftries === 3) {
+        return res.json({
+          message: 'Game Over!',
+        })
+      } else {
+        res.json({
+          message: 'Try again',
+        })
+      }
 
-    //sessionDB.numCorrect++
-    console.log(tempNumTry++, 'tempNumTry2')
-    let newNumAttempts = sessionDB.numTry
-    console.log(hadAnyWrongAnswers, 'hadAnyWrongAnswers2')
-    if (hadAnyWrongAnswers) {
-      newNumAttempts += 1
-      console.log(newNumAttempts, 'newNumAttempts')
-
-      tempNumTry++
-      console.log(tempNumTry, 'tempNumTry2')
-
-      await Calculation.updateOne(req.body.replyId, {
-        ...(numTry = newNumAttempts),
-      }).save()
-      res.json({
-        numTry: tempNumTry,
-        message: 'Try again',
+      await Calculation.updateOne(sessionDB, {
+        numTry: currentNumberOftries + 1,
       })
     } else {
-      res.json({
-        numTry: tempNumTry,
+      return res.json({
         message: 'Congratulations',
       })
     }
@@ -79,5 +48,15 @@ const postCalculation = asyncHandler(async (req, res) => {
     console.error(error)
   }
 })
+
+async function checkForWrongAnswer(questionsArray) {
+  for await (let q of questionsArray) {
+    const questionSession = await Question.findById(q.id)
+    if (questionSession.answer !== q.answer) {
+      return true
+    }
+  }
+  return false
+}
 
 export { postCalculation }

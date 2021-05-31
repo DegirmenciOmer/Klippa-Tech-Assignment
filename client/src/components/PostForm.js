@@ -7,8 +7,8 @@ import Loading from '../components/Loading'
 const PostForm = () => {
   const [questions, setQuestions] = useState([])
   const [replyId, setReplyId] = useState('')
-  const [message, setMessage] = useState('')
-
+  const [success, setSuccess] = useState(false)
+  const [fail, setFail] = useState(false)
   useEffect(() => {
     setQuestions([])
     const fetchQs = async () => {
@@ -35,7 +35,6 @@ const PostForm = () => {
   const handleSubmit = async (e) => {
     e.preventDefault()
     try {
-      console.log(questions, 'questions')
       const { data } = await axios.post(
         'http://localhost:5000/quest/calculation',
         {
@@ -45,15 +44,19 @@ const PostForm = () => {
       )
       console.log(data.message)
       if (data.message === 'Congratulations') {
-        console.log('start new game')
+        setSuccess(true)
+      } else if (data.message === 'Try again') {
+        setSuccess(false)
+        setFail(true)
+        console.log({ fail })
       } else {
-        console.log('try again')
       }
     } catch (error) {
       console.error(error)
     }
   }
-
+  console.log({ success })
+  //history.push('http://localhost:3000/success')
   return (
     <>
       <Form onSubmit={handleSubmit} className='ui centered' size='large'>
