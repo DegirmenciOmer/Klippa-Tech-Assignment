@@ -3,11 +3,15 @@ import axios from 'axios'
 
 import { Grid, Form, Button } from 'semantic-ui-react'
 import Loading from '../components/Loading'
+import Success from '../pages/Success'
+import TryAgain from '../pages/TryAgain'
+import Fail from '../pages/Fail'
 
 const PostForm = () => {
   const [questions, setQuestions] = useState([])
   const [replyId, setReplyId] = useState('')
   const [success, setSuccess] = useState(false)
+  const [tryAgain, setTryAgain] = useState(false)
   const [fail, setFail] = useState(false)
   useEffect(() => {
     setQuestions([])
@@ -39,21 +43,25 @@ const PostForm = () => {
         questions,
         replyId,
       })
-      console.log(data.message)
+      console.log({ data })
       if (data.message === 'Congratulations') {
         setSuccess(true)
+        setFail(false)
+        setTryAgain(false)
       } else if (data.message === 'Try again') {
         setSuccess(false)
-        setFail(true)
+        setFail(false)
+        setTryAgain(true)
         console.log({ fail })
       } else {
+        setSuccess(false)
+        setFail(true)
+        setTryAgain(false)
       }
     } catch (error) {
       console.error(error)
     }
   }
-  console.log({ success })
-  //history.push('http://localhost:3000/success')
   return (
     <>
       <Form onSubmit={handleSubmit} className='ui centered' size='large'>
@@ -96,6 +104,9 @@ const PostForm = () => {
           Submit Answers
         </Button>
       </Form>
+      {success && <Success />}
+      {fail && <Fail />}
+      {tryAgain && <TryAgain />}
     </>
   )
 }
