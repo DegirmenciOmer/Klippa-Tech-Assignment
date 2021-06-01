@@ -35,13 +35,10 @@ const PostForm = () => {
   const handleSubmit = async (e) => {
     e.preventDefault()
     try {
-      const { data } = await axios.post(
-        'http://localhost:5000/quest/calculation',
-        {
-          questions,
-          replyId,
-        }
-      )
+      const { data } = await axios.post('http://localhost:5000/quest/session', {
+        questions,
+        replyId,
+      })
       console.log(data.message)
       if (data.message === 'Congratulations') {
         setSuccess(true)

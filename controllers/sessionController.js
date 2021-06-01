@@ -1,8 +1,8 @@
 import asyncHandler from 'express-async-handler'
-import Calculation from '../models/calculationModel.js'
+import Session from '../models/sessionModel.js'
 import Question from '../models/questionModel.js'
 
-const postCalculation = asyncHandler(async (req, res) => {
+const postSession = asyncHandler(async (req, res) => {
   try {
     /**
      * TODO:
@@ -13,7 +13,7 @@ const postCalculation = asyncHandler(async (req, res) => {
      * start a new game
      */
     const replyArray = req.body.questions
-    const sessionDB = await Calculation.findById(req.body.replyId)
+    const sessionDB = await Session.findById(req.body.replyId)
 
     //const response = balblafunction(replyArray, sessionDB)
 
@@ -36,7 +36,7 @@ const postCalculation = asyncHandler(async (req, res) => {
         })
       }
 
-      await Calculation.updateOne(sessionDB, {
+      await Session.updateOne(sessionDB, {
         numTry: currentNumberOftries + 1,
       })
     } else {
@@ -59,4 +59,4 @@ async function checkForWrongAnswer(questionsArray) {
   return false
 }
 
-export { postCalculation }
+export { postSession }

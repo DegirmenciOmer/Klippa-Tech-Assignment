@@ -1,6 +1,6 @@
 import asyncHandler from 'express-async-handler'
 import Question from '../models/questionModel.js'
-import Calculation from '../models/calculationModel.js'
+import Session from '../models/sessionModel.js'
 
 const getQuestions = asyncHandler(async (req, res) => {
   try {
@@ -13,10 +13,10 @@ const getQuestions = asyncHandler(async (req, res) => {
         id: q._id,
       }))
 
-    const newCalculation = await new Calculation({
+    const newSession = await new Session({
       questions: refinedQs,
     }).save()
-    return await res.json(newCalculation)
+    return await res.json(newSession)
   } catch (error) {
     console.error(error)
   }

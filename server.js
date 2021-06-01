@@ -2,7 +2,7 @@ import express from 'express'
 import dotenv from 'dotenv'
 import connectDB from './config/db.js'
 import { getQuestions } from './controllers/questController.js'
-import { postCalculation } from './controllers/calController.js'
+import { postSession } from './controllers/sessionController.js'
 
 const app = express()
 
@@ -26,7 +26,7 @@ connectDB()
 const PORT = process.env.PORT || 8000
 
 app.get('/', getQuestions)
-app.post('/quest/calculation', postCalculation)
+app.post('/quest/session', postSession)
 
 app.get('*', (req, res) => {
   res.status(404).json({ error: 'Not found' })

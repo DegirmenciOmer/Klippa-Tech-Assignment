@@ -1,10 +1,8 @@
 import mongoose from 'mongoose'
 import dotenv from 'dotenv'
-import sampleUsers from './data/sampleUsers.js'
 import sampleQs from './data/sampleQs.js'
-import Calculation from './models/calculationModel.js'
+import Session from './models/sessionModel.js'
 import Question from './models/questionModel.js'
-import User from './models/userModel.js'
 import connectDB from './config/db.js'
 
 dotenv.config()
@@ -14,9 +12,7 @@ connectDB()
 const importData = async () => {
   try {
     await Question.deleteMany()
-    await User.deleteMany()
-    await Calculation.deleteMany()
-    //await User.insertMany(sampleUsers)
+    await Session.deleteMany()
     await Question.insertMany(sampleQs)
 
     console.log('Data imported')
@@ -30,8 +26,7 @@ const importData = async () => {
 const destroyData = async () => {
   try {
     await Question.deleteMany()
-    await User.deleteMany()
-    await Calculation.deleteMany()
+    await Session.deleteMany()
 
     console.log('Data destroyed')
     process.exit()

@@ -1,6 +1,6 @@
 import mongoose from 'mongoose'
 
-const calculationSchema = mongoose.Schema({
+const sessionSchema = mongoose.Schema({
   questions: {
     type: Array,
     required: false,
@@ -12,6 +12,6 @@ const calculationSchema = mongoose.Schema({
   },
 })
 
-const Calculation = mongoose.model('Calculation', calculationSchema)
+const Session = mongoose.model('Session', sessionSchema)
 
-export default Calculation
+export default Session
