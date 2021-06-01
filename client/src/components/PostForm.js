@@ -3,16 +3,11 @@ import axios from 'axios'
 
 import { Grid, Form, Button } from 'semantic-ui-react'
 import Loading from '../components/Loading'
-import Success from '../pages/Success'
-import TryAgain from '../pages/TryAgain'
-import Fail from '../pages/Fail'
 
 const PostForm = () => {
   const [questions, setQuestions] = useState([])
   const [replyId, setReplyId] = useState('')
-  const [success, setSuccess] = useState(false)
-  const [tryAgain, setTryAgain] = useState(false)
-  const [fail, setFail] = useState(false)
+  const [feedbackState, setFeedbackState] = useState('')
   useEffect(() => {
     setQuestions([])
     const fetchQs = async () => {
@@ -39,25 +34,15 @@ const PostForm = () => {
   const handleSubmit = async (e) => {
     e.preventDefault()
     try {
-      const { data } = await axios.post('http://localhost:5000/quest/session', {
+      const {
+        data: { message, feedback },
+      } = await axios.post('http://localhost:5000/quest/session', {
         questions,
         replyId,
       })
-      console.log({ data })
-      if (data.message === 'Congratulations') {
-        setSuccess(true)
-        setFail(false)
-        setTryAgain(false)
-      } else if (data.message === 'Try again') {
-        setSuccess(false)
-        setFail(false)
-        setTryAgain(true)
-        console.log({ fail })
-      } else {
-        setSuccess(false)
-        setFail(true)
-        setTryAgain(false)
-      }
+      console.log({ feedback })
+      setFeedbackState(message)
+      console.log(feedbackState)
     } catch (error) {
       console.error(error)
     }
@@ -104,9 +89,7 @@ const PostForm = () => {
           Submit Answers
         </Button>
       </Form>
-      {success && <Success />}
-      {fail && <Fail />}
-      {tryAgain && <TryAgain />}
+      <p>{feedbackState}</p>
     </>
   )
 }

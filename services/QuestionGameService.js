@@ -30,10 +30,11 @@ async function responseHandler(answersArray, answersFromDB) {
 
   console.log({ dbQuestions })
 
-  const feedback = await checkForWrongAnswersWithFeedback(
-    answersArray,
-    dbQuestions
-  )
+  const feedback = (
+    await checkForWrongAnswersWithFeedback(answersArray, dbQuestions)
+  ).filter((x) => x)
+
+  console.log({ feedback })
   if (feedback.length > 0) {
     console.log({ numberOfTries: answersFromDB.numTry })
 
