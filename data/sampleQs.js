@@ -8,8 +8,8 @@ const sampleQuestions = [
     answer: 33,
   },
   {
-    question: '12 - 22',
-    answer: -10,
+    question: '22 - 12',
+    answer: 10,
   },
   {
     question: '111 x 20',

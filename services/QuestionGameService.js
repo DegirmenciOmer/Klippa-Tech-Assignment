@@ -1,17 +1,7 @@
 import Question from '../models/questionModel.js'
 import Session from '../models/sessionModel.js'
 
-async function checkForWrongAnswer(questionsArray) {
-  for await (let q of questionsArray) {
-    const questionSession = await Question.findById(q.id)
-    if (questionSession.answer !== q.answer) {
-      return true
-    }
-  }
-  return false
-}
-
-const checkForWrongAnswersWithFeedback = (questionsArray, dbQuestions) =>
+const checkForWrongAnswersWithFeedbacks = (questionsArray, dbQuestions) =>
   questionsArray.map((question) => {
     const dbQuestion = dbQuestions.find(
       (dbQuestion) => dbQuestion.id === question.id
@@ -20,7 +10,7 @@ const checkForWrongAnswersWithFeedback = (questionsArray, dbQuestions) =>
     if (dbQuestion.answer !== question.answer) {
       return {
         questionId: question.id,
-        feedback: `Answer "${question.answer}" is not correct`,
+        feedbacks: `Answer "${question.answer}" is not correct`,
       }
     }
   })
@@ -28,21 +18,16 @@ const checkForWrongAnswersWithFeedback = (questionsArray, dbQuestions) =>
 async function responseHandler(answersArray, answersFromDB) {
   const dbQuestions = await Question.find({})
 
-  console.log({ dbQuestions })
-
-  const feedback = (
-    await checkForWrongAnswersWithFeedback(answersArray, dbQuestions)
+  const feedbacks = (
+    await checkForWrongAnswersWithFeedbacks(answersArray, dbQuestions)
   ).filter((x) => x)
 
-  console.log({ feedback })
-  if (feedback.length > 0) {
-    console.log({ numberOfTries: answersFromDB.numTry })
-
+  if (feedbacks.length > 0) {
     let currentNumberOftries = answersFromDB.numTry
 
     if (currentNumberOftries === 3) {
       return {
-        feedback,
+        feedbacks,
         message: 'Game Over!',
       }
     } else {
@@ -51,13 +36,13 @@ async function responseHandler(answersArray, answersFromDB) {
       })
 
       return {
-        feedback,
-        message: 'Try again',
+        feedbacks,
+        message: 'Try again!',
       }
     }
   } else {
     return {
-      message: 'Congratulations',
+      message: 'Congratulations!!',
     }
   }
 }

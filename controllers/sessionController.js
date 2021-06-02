@@ -15,7 +15,6 @@ const postSession = asyncHandler(async (req, res) => {
     const sessionDB = await Session.findById(req.body.replyId)
 
     const response = await responseHandler(req.body.questions, sessionDB)
-    console.log(response)
     res.json(response)
   } catch (error) {
     console.error(error)

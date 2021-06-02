@@ -9,44 +9,42 @@ const PostForm = () => {
   const [questions, setQuestions] = useState([])
   const [replyId, setReplyId] = useState('')
   const [feedbackState, setFeedbackState] = useState('')
-  const [feedbackArray, setFeedbackArray] = useState([])
-  useEffect(() => {
-    setQuestions([])
-    const fetchQs = async () => {
-      try {
-        const { data } = await axios.get('http://localhost:5000/')
+  const [feedbacksArray, setFeedbacksArray] = useState([])
 
-        setQuestions(
-          data.questions.map((q) => {
-            return {
-              question: q.question,
-              answer: '',
-              id: q.id,
-            }
-          })
-        )
-        setReplyId(data._id)
-      } catch (error) {
-        console.error(error)
-      }
+  const fetchQuestions = async () => {
+    try {
+      setQuestions([])
+      const { data } = await axios.get('http://localhost:5000/')
+
+      setQuestions(
+        data.questions.map((q) => {
+          return {
+            question: q.question,
+            answer: '',
+            id: q.id,
+          }
+        })
+      )
+      setReplyId(data._id)
+    } catch (error) {
+      console.error(error)
     }
-    fetchQs()
+  }
+  useEffect(() => {
+    fetchQuestions()
   }, [])
 
   const handleSubmit = async (e) => {
     e.preventDefault()
     try {
       const {
-        data: { message, feedback },
+        data: { message, feedbacks },
       } = await axios.post('http://localhost:5000/quest/session', {
         questions,
         replyId,
       })
-      console.log(feedback)
-      setFeedbackArray(feedback)
-      console.log(feedbackArray)
+      setFeedbacksArray(feedbacks)
       setFeedbackState(message)
-      console.log(feedbackState)
     } catch (error) {
       console.error(error)
     }
@@ -96,8 +94,9 @@ const PostForm = () => {
       {feedbackState && (
         <FeedbackModal
           feedbackState={feedbackState}
-          feedbackArray={feedbackArray}
+          feedbacksArray={feedbacksArray}
           setFeedbackState={setFeedbackState}
+          fetchQuestions={fetchQuestions}
         />
       )}
     </>
