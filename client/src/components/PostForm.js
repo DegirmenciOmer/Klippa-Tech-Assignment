@@ -3,11 +3,13 @@ import axios from 'axios'
 
 import { Grid, Form, Button } from 'semantic-ui-react'
 import Loading from '../components/Loading'
+import FeedbackModal from './FeedbackModal'
 
 const PostForm = () => {
   const [questions, setQuestions] = useState([])
   const [replyId, setReplyId] = useState('')
   const [feedbackState, setFeedbackState] = useState('')
+  const [feedbackArray, setFeedbackArray] = useState([])
   useEffect(() => {
     setQuestions([])
     const fetchQs = async () => {
@@ -40,7 +42,9 @@ const PostForm = () => {
         questions,
         replyId,
       })
-      console.log({ feedback })
+      console.log(feedback)
+      setFeedbackArray(feedback)
+      console.log(feedbackArray)
       setFeedbackState(message)
       console.log(feedbackState)
     } catch (error) {
@@ -89,7 +93,13 @@ const PostForm = () => {
           Submit Answers
         </Button>
       </Form>
-      <p>{feedbackState}</p>
+      {feedbackState && (
+        <FeedbackModal
+          feedbackState={feedbackState}
+          feedbackArray={feedbackArray}
+          setFeedbackState={setFeedbackState}
+        />
+      )}
     </>
   )
 }
