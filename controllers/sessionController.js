@@ -8,7 +8,7 @@ import { responseHandler } from '../services/QuestionGameService.js'
  * if at least one incorrect, numTry++, try again
  * if numTry === 3 GAMEOVER
  * if correct, SUCCESS
- * start a new game
+ * restart for a new game
  */
 const postSession = asyncHandler(async (req, res) => {
   try {
