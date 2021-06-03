@@ -14,7 +14,9 @@ const PostForm = () => {
   const fetchQuestions = async () => {
     try {
       setQuestions([])
-      const { data } = await axios.get('http://localhost:5000/')
+      const { data } = await axios.get(
+        'https://klippa--tech-calculation-game.herokuapp.com/'
+      )
 
       setQuestions(
         data.questions.map((q) => {
@@ -39,10 +41,13 @@ const PostForm = () => {
     try {
       const {
         data: { message, feedbacks },
-      } = await axios.post('http://localhost:5000/quest/session', {
-        questions,
-        replyId,
-      })
+      } = await axios.post(
+        'https://klippa--tech-calculation-game.herokuapp.com/quest/session',
+        {
+          questions,
+          replyId,
+        }
+      )
       setFeedbacksArray(feedbacks)
       setFeedbackState(message)
     } catch (error) {
