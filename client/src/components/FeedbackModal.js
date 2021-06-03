@@ -30,7 +30,7 @@ const FeedbackModal = ({
         >
           <Modal.Header>{feedbackState}</Modal.Header>
           <Modal.Content image>
-            <Giphy tag={feedbackState} />
+            <Giphy className='giphy' tag={feedbackState} />
 
             {feedbacksArray && (
               <Modal.Description>

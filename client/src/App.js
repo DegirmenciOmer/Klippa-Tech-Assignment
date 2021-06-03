@@ -7,7 +7,7 @@ import Home from './pages/Home'
 
 function App() {
   return (
-    <Router style={{ backgroundImage: 'url(/bground.jpg)' }} className='App'>
+    <Router className='App'>
       <Container>
         <Route exact path='/' component={Home} />
       </Container>
