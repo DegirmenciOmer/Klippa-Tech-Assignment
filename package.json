@@ -9,7 +9,9 @@
     "start": "node server",
     "data:import": "node seeder",
     "data:destroy": "node seeder -d",
-    "dev": "nodemon server"
+    "dev": "nodemon server",
+    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix client && npm run build --prefix client"
+
   },
   "repository": {
     "type": "git",
