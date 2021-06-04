@@ -72,10 +72,4 @@ Backend:
 \$ npm start
 
 
-## Screenshots
 
-<img src="" width="400" />
-<img src="" width="400" />
-<img src="" width="400" />
-<img src="" width="400" />
-<br/>
