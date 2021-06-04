@@ -1,6 +1,23 @@
+# 
+
+
+
+
 # Klippa-Tech-Assignment
 
-## Create a basic calculator React app.
+Create a basic calculator React app.
+
+- Working site : [here](https://klippa-calculation-game.netlify.app/)
+
+## Table of contents
+
+- [Table of contents](#table-of-contents)
+- [Requirements](#requirements)
+- [Technologies](#technologies)
+- [Features](#features)
+- [Screenshots](#screenshots)
+
+## Requirements
 
 - The app needs to have a header for a logo and a menu.
 - On the first screen of this app, the app selects a random calculation from a database of 5 different. For example a calculation could be: 3 \* 6 . You can make the 5 calculations as complicated as you want. You can use a database of choice. Also store a hash of each calculation in the database.
@@ -16,3 +33,34 @@
 - Make sure you store in the database how many tries a user does before he gets the answer correct.
 - Also make sure to store, which questions the user got right or wrong.
 - The webpage can be used by multiple people.
+
+## Technologies
+
+Frontend:
+
+- React
+- Semantic UI
+
+Backend:
+
+- NodeJS
+- REST API
+- MongoDB
+- Mongoose
+- Express
+
+## Clone this repository
+
+\$ git clone https://github.com/DegirmenciOmer/Klippa-Tech-Assignment.git
+
+## Install backend
+\$ npm install
+
+
+## Screenshots
+
+<img src="" width="400" />
+<img src="" width="400" />
+<img src="" width="400" />
+<img src="" width="400" />
+<br/>
