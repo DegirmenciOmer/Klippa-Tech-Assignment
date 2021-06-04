@@ -56,6 +56,20 @@ Backend:
 ## Install backend
 \$ npm install
 
+## Run the server with nodemon
+\$ npm run dev
+
+## Run the server once
+\$ npm start
+
+## Data import / destroy
+\$ npm run data:import
+\$ npm run data:destroy
+
+## Run the client
+\$ cd client/
+\$ npm start
+
 
 ## Screenshots
 
