@@ -8,10 +8,12 @@ import { postSession } from './controllers/sessionController.js'
 const app = express()
 
 app.use(express.json())
-
 const __dirname = path.resolve()
 
 app.use((req, res, next) => {
+  //https://klippa-calculation-game.netlify.app
+  //http://localhost:3000
+
   res.setHeader(
     'Access-Control-Allow-Origin',
     'https://klippa-calculation-game.netlify.app'

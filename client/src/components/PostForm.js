@@ -11,12 +11,13 @@ const PostForm = () => {
   const [feedbackState, setFeedbackState] = useState('')
   const [feedbacksArray, setFeedbacksArray] = useState([])
 
+  const LOCALHOST_API = 'http://localhost:5000/'
+  const HEROKU_API = 'https://klippa--tech-calculation-game.herokuapp.com/'
+
   const fetchQuestions = async () => {
     try {
       setQuestions([])
-      const { data } = await axios.get(
-        'https://klippa--tech-calculation-game.herokuapp.com/'
-      )
+      const { data } = await axios.get(HEROKU_API)
 
       setQuestions(
         data.questions.map((q) => {
@@ -35,19 +36,17 @@ const PostForm = () => {
   useEffect(() => {
     fetchQuestions()
   }, [])
-
+  //'http://localhost:5000/'
+  //'https://klippa--tech-calculation-game.herokuapp.com/quest/session'
   const handleSubmit = async (e) => {
     e.preventDefault()
     try {
       const {
         data: { message, feedbacks },
-      } = await axios.post(
-        'https://klippa--tech-calculation-game.herokuapp.com/quest/session',
-        {
-          questions,
-          replyId,
-        }
-      )
+      } = await axios.post(HEROKU_API + 'quest/session', {
+        questions,
+        replyId,
+      })
       setFeedbacksArray(feedbacks)
       setFeedbackState(message)
     } catch (error) {

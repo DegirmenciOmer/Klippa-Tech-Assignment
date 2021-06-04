@@ -4,7 +4,7 @@ import PostForm from '../components/PostForm'
 
 const Home = () => {
   return (
-    <Grid className='ui centered home'>
+    <Grid className='ui middle aligned centered '>
       <Grid.Row>
         <Header as='h1' content='New Game' textAlign='center' />
       </Grid.Row>

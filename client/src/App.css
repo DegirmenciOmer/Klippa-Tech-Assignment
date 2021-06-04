@@ -2,17 +2,15 @@
     box-sizing: border-box;
   }
 
-  .home{
-    margin-top:12vh !important;
+body {
+    background: linear-gradient(to right, #0022461b, #1cb5e0)  !important;
+    display: flex;
+  	justify-content: center;
+  	align-items: center;
   }
 
-
-body {
-    height: 100vh;
-    background: linear-gradient(to right, #0022461b, #1cb5e0)  !important;
-    display: flex !important;
-    flex-direction: column !important;
-
+  .root{
+    height: 100vh !important;
   }
 
 .fields{
@@ -21,5 +19,9 @@ padding: 9px;
 
 .feedback-items{
   text-align: center;
+}
+.gif img{
+  
+  width: 100% !important;
 }
 
