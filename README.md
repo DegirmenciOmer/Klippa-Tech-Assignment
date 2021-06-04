@@ -64,6 +64,7 @@ Backend:
 
 ## Data import / destroy
 \$ npm run data:import
+<br/>
 \$ npm run data:destroy
 
 ## Run the client
