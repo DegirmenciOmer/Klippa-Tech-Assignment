@@ -20,8 +20,11 @@ padding: 9px;
 .feedback-items{
   text-align: center;
 }
-.gif img{
-  
+.modalui{  
+  height: 80% !important;
+}
+
+.gif img{  
   width: 100% !important;
 }
 

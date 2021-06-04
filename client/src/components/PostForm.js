@@ -17,7 +17,7 @@ const PostForm = () => {
   const fetchQuestions = async () => {
     try {
       setQuestions([])
-      const { data } = await axios.get(HEROKU_API)
+      const { data } = await axios.get(LOCALHOST_API)
 
       setQuestions(
         data.questions.map((q) => {
@@ -43,7 +43,7 @@ const PostForm = () => {
     try {
       const {
         data: { message, feedbacks },
-      } = await axios.post(HEROKU_API + 'quest/session', {
+      } = await axios.post(LOCALHOST_API + 'quest/session', {
         questions,
         replyId,
       })

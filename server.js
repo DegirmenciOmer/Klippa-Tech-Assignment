@@ -10,14 +10,11 @@ const app = express()
 app.use(express.json())
 const __dirname = path.resolve()
 
-app.use((req, res, next) => {
-  //https://klippa-calculation-game.netlify.app
-  //http://localhost:3000
+const LOCALHOST_API = 'http://localhost:3000'
+const HEROKU_API = 'https://klippa--tech-calculation-game.herokuapp.com'
 
-  res.setHeader(
-    'Access-Control-Allow-Origin',
-    'https://klippa-calculation-game.netlify.app'
-  )
+app.use((req, res, next) => {
+  res.setHeader('Access-Control-Allow-Origin', LOCALHOST_API)
   res.setHeader('Access-Control-Allow-Credentials', 'true')
   res.setHeader('Access-Control-Allow-Methods', 'GET,HEAD,OPTIONS,POST,PUT')
   res.setHeader(

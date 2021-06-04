@@ -33,18 +33,17 @@ const FeedbackModal = ({
           </Modal.Header>
           <Modal.Content>
             <Giphy className='giphy' tag={feedbackState} />
-
-            {feedbacksArray && (
-              <Modal.Description dir='tb'>
-                {feedbacksArray.map((feedback) => (
-                  <p className='feedback-items' key={feedback.questionId}>
-                    {feedback.feedbacks}
-                  </p>
-                ))}
-              </Modal.Description>
-            )}
           </Modal.Content>
-          <Modal.Actions className='ui centered grid'>
+          {feedbacksArray && (
+            <Modal.Description dir='tb'>
+              {feedbacksArray.map((feedback) => (
+                <p className='feedback-items' key={feedback.questionId}>
+                  {feedback.feedbacks}
+                </p>
+              ))}
+            </Modal.Description>
+          )}
+          <Modal.Actions className='ui centered '>
             <Button
               className=' centered '
               primary

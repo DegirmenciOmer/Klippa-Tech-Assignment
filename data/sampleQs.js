@@ -31,6 +31,26 @@ const sampleQuestions = [
     question: '2323 / 23',
     answer: 101,
   },
+  {
+    question: '2323 + 23',
+    answer: 2346,
+  },
+  {
+    question: '2323 - 23',
+    answer: 2300,
+  },
+  {
+    question: '33 / 11',
+    answer: 3,
+  },
+  {
+    question: '20 - 12',
+    answer: 8,
+  },
+  {
+    question: '144 - 44',
+    answer: 100,
+  },
 ]
 
 export default sampleQuestions
