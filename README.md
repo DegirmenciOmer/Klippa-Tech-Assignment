@@ -71,5 +71,17 @@ Backend:
 \$ cd client/
 \$ npm start
 
+## Screenshots
+
+<img src="./client/public/image.png" width="400" />
+<br/>
+
+<img src="./client/public/image2.png" width="400" />
+<br/>
+
+<img src="./client/public/image3.png" width="400" />
+<br/>
+
+
 
 
