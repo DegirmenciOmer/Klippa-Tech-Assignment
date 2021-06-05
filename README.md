@@ -73,13 +73,13 @@ Backend:
 
 ## Screenshots
 
-<img src="./client/public/image.png" width="400" />
+<img src="./client/public/image.PNG" width="400" />
 <br/>
 
-<img src="./client/public/image2.png" width="400" />
+<img src="./client/public/image2.PNG" width="400" />
 <br/>
 
-<img src="./client/public/image3.png" width="400" />
+<img src="./client/public/image3.PNG" width="400" />
 <br/>
 
 
