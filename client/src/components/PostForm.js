@@ -33,11 +33,11 @@ const PostForm = () => {
       console.error(error)
     }
   }
+
   useEffect(() => {
     fetchQuestions()
   }, [])
-  //'http://localhost:5000/'
-  //'https://klippa--tech-calculation-game.herokuapp.com/quest/session'
+
   const handleSubmit = async (e) => {
     e.preventDefault()
     try {

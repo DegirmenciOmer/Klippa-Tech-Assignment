@@ -1,4 +1,3 @@
-import mongoose from 'mongoose'
 import dotenv from 'dotenv'
 import sampleQs from './data/sampleQs.js'
 import Session from './models/sessionModel.js'
